@@ -2,9 +2,10 @@ Crafty.c('Player', {
   init: function() {
     this.requires('Actor, player_sprite')
     .areaMap([42,0],[86,0],[86,112],[42,112])
-    .bind('EnterFrame', this.walk());
-    //.bind("movePlayer", function(data) { this.move_g_pos(data) });
+    .attr('movement_lock', 0);
   },
+
+  movement_queue: [],
 
   set_center: function(x_cord, y_cord) {
       this.x = $( "#cr-stage" ).width()/2-128; 
@@ -28,38 +29,25 @@ Crafty.c('Player', {
       real_y = value.y - Map.radius + player.coordinate.y;
       true_path.push({x: real_x, y: real_y});
     });
-    this.attr('movement_queue', path);
+    this.attr('movement_queue', true_path);
   },
 
   walk: function() {
-    //pull off movement_queue and add to forces
-    if(this.forces.length == 0)
+    if(this.movement_lock > 0)
     {
-      //next_step = movement_queue.pop();
-      this.forces.push({x: 2, y: 1, t: 64});
+      this.movement_lock--;
+    } 
+    else if(this.movement_lock == 0 && this.movement_queue.length > 0)
+    {
+      var next_step = this.movement_queue.shift();
+      var dx = -(next_step.x-player.coordinate.x)*2 + -(next_step.y-player.coordinate.y)*2;
+      var dy = (next_step.x-player.coordinate.x) + -(next_step.y-player.coordinate.y);
+      var force = {x: dx, y: dy, t: 32};
+      Crafty.trigger('moveBackground', force);
+      this.attr('movement_lock', 32);
+      player.coordinate.x = next_step.x;
+      player.coordinate.y = next_step.y;
     }
   },
-      
-    //dgx = object.g_x - this.g_x;
-    //dgy = object.g_y - this.g_y;
-    //dplayer = { dgx: dgx, dgy: dgy };
-    //Crafty.trigger('movePlayer', dplayer);
-
-    //player_pos = iso.pos2px(this.i_x, this.i_y);
-    //object_pos = iso.pos2px(object.i_x, object.i_y);
-    //dpx = player_pos.left - object_pos.left;
-    //dpy = object_pos.top - player_pos.top;
-    //dt  = Math.sqrt((dgx*dgx)+(dgy*dgy))*500
-    //dbackground = { dpx: dpx, dpy: dpy, dt: dt };
-
-    //console.log("click: " + [object.g_x, object.g_y]);
-
-  //move_g_pos: function(transformation) {
-  //  this.attr({
-  //    g_x: this.g_x+transformation.dgx,
-  //    g_y: this.g_y+transformation.dgy,
-  //  });
-  //  return this;
-  //},
 
 });

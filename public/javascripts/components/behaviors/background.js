@@ -1,8 +1,8 @@
 Crafty.c('Background', {
   init: function() {
-    this.bind("moveBackground", function(dx, dy, dt) {
-      this.forces.push([dx, dy, dt]);
-      console.log(this.forces);
+    this.bind("moveBackground", function(force) {
+      var force_clone = $.extend({}, force);
+      this.forces.push(force_clone);
     });
   },
 });

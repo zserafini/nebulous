@@ -19,8 +19,7 @@ Map = {
         var tile = Crafty.e(tile_data.type)
           .at(x, y)
           .attr('z', y*2-x)
-          .bind("Click", function() { console.log(this.coordinates) })
-          .bind("Click", function() { player.walk_to(this.coordinates) });
+          .bind("Click", function() { player.walk_to(this.coordinates) })
       }
     }
   },

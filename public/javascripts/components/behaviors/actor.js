@@ -1,14 +1,13 @@
 Crafty.c('Actor', {
 
   init: function() {
-    this.requires('2D, Grid, Mouse, DOM, Tween')
-    .bind('EnterFrame', this.apply_forces());
+    this.requires('2D, Grid, Mouse, DOM, Tween');
+    this.forces = [];
+    this.bind('EnterFrame', function() { this.apply_forces(); });
   },
 
-  forces: [], //hold list of movement forces acting on actor
 
   at: function(x, y) {
-
     dx = ((x-player.coordinate.x)*64) + ((y-player.coordinate.x)*64);
     dy = (-(x-player.coordinate.x)*32) + ((y-player.coordinate.x)*32);
 
@@ -19,15 +18,20 @@ Crafty.c('Actor', {
   },
 
   apply_forces: function() {
-    console.log('xxx');
-    //called by game timer - moves actor on screen
     var dx = 0;
     var dy = 0;
-    $.each(this.forces, function(key, value){
-      dx += value.x;
-      dy += value.y;
-      value.t--;
-    });
+    var forceCount = this.forces.length;
+    for(var i = 0; i < forceCount; i++) {
+
+      dx += this.forces[i].x;
+      dy += this.forces[i].y;
+      
+      this.forces[i].t--;
+      if(this.forces[i].t == 0)
+      {
+        this.forces.splice(i, 1);
+      }
+    }
     this.x += dx;
     this.y += dy;
   },

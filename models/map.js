@@ -1,6 +1,6 @@
 module.exports = {
 
-  radius: 5,
+  radius: 6,
 
   initialize: function() {
     console.log('building map');
