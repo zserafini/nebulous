@@ -3,11 +3,19 @@ block content
   div(id='canvasWrapper')
     script(src='http://code.jquery.com/jquery-1.11.1.js')
     script(src='/socket.io/socket.io.js')
-    script(src='javascripts/crafty-min.js')
-    script(src='javascripts/astar.js')
+    script(src='javascripts/lib/crafty-min.js')
+    script(src='javascripts/lib/astar.js')
     script(src='javascripts/game.js')
-    script(src='javascripts/components.js')
     script(src='javascripts/map.js')
+
+    script(src='javascripts/components/player.js')
+    script(src='javascripts/components/water.js')
+    script(src='javascripts/components/grass.js')
+
+    script(src='javascripts/components/behaviors/background.js')
+    script(src='javascripts/components/behaviors/actor.js')
+
     script(src='javascripts/scene.js')
+
     script.
       window.addEventListener('load', Game.start)
