@@ -1,13 +1,13 @@
 module.exports = {
 
-  radius: 6,
+  radius: 8,
 
   initialize: function() {
     console.log('building map');
     for(var x = 0; x < 200; x++) {
       this.layout[x] = [];
       for(var y = 0; y < 200; y++) {
-        if(Math.random() < 0.2) {
+        if(Math.random() < 0.3) {
           tile_type = "Water";
         } else {
           tile_type = "Grass";

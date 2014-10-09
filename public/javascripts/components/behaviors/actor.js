@@ -12,7 +12,7 @@ Crafty.c('Actor', {
     dy = (-(x-player.coordinate.x)*32) + ((y-player.coordinate.x)*32);
 
     this.x = player._x+dx;
-    this.y = player._y+64+dy;
+    this.y = player._y+80+dy;
     this.coordinates = { x: x, y: y };
     return this;
   },
