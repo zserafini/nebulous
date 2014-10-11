@@ -1,6 +1,8 @@
 module.exports = {
 
-  radius: 8,
+  players: {}, // in memory storage off all players online (key:username)
+
+  layout: [], //in memory storage of map
 
   initialize: function() {
     console.log('building map');
@@ -22,12 +24,11 @@ module.exports = {
     console.log('building map complete');
   },
 
-  layout: [],
-
   get_local_map: function(coordinates) {
+    var radius= 8;
     var hash_map = {};
-    for(var x = coordinates.x+this.radius; x >= coordinates.x-this.radius; x--) {
-      for(var y = coordinates.y+this.radius; y >= coordinates.y-this.radius; y--) {
+    for(var x = coordinates.x+radius; x >= coordinates.x-radius; x--) {
+      for(var y = coordinates.y+radius; y >= coordinates.y-radius; y--) {
         key = x.toString() + ":" + y.toString();
         hash_map[key] = this.layout[x][y];
       }
@@ -37,5 +38,13 @@ module.exports = {
 
   update_local_map: function(coordinates,direction) {
     //smart selection of map tiles goes here
+  },
+
+  add_player: function(new_player) {
+    this.players[new_player.username] = new_player;
+  },
+
+  update_player: function(updated_player) {
+    this.players[updated_player.username] = updated_player;
   },
 }
