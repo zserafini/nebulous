@@ -3,11 +3,12 @@ var player;
 Crafty.scene('Game', function() {
 
   get_map = function() {
+    Map.map.initialize();
     socket.emit('map request', { x: player.coordinate.x, y: player.coordinate.y });
   };
 
   socket.on('map request', function(new_map) {
-    Map.map.layout = new_map;
+    Map.map.insert_new_records(new_map);
     Map.initialize();
   });
 

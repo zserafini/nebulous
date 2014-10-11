@@ -14,7 +14,7 @@ module.exports = {
         } else {
           tile_type = "Grass";
         }
-        var tile_data = {type: tile_type, open: 1, children: []};
+        var tile_data = {type: tile_type, open: 1, children: [], x: x, y: y};
         if(tile_type == "Water"){
           tile_data.open = 0;
         }
@@ -26,14 +26,15 @@ module.exports = {
 
   get_local_map: function(coordinates) {
     var radius= 8;
-    var hash_map = {};
+
+    var local_layout = [];
+
     for(var x = coordinates.x+radius; x >= coordinates.x-radius; x--) {
       for(var y = coordinates.y+radius; y >= coordinates.y-radius; y--) {
-        key = x.toString() + ":" + y.toString();
-        hash_map[key] = this.layout[x][y];
+        local_layout.push(this.layout[x][y]);
       }
     }
-    return hash_map;
+    return local_layout;
   },
 
   update_local_map: function(coordinates,direction) {
