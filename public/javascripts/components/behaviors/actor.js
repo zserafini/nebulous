@@ -1,9 +1,7 @@
 Crafty.c('Actor', {
 
   init: function() {
-    this.requires('2D, Grid, Mouse, DOM, Tween');
-    this.forces = [];
-    this.bind('EnterFrame', function() { this.apply_forces(); });
+    this.requires('2D, Grid, Mouse, DOM, Movement');
   },
 
 
@@ -18,24 +16,4 @@ Crafty.c('Actor', {
     return this;
   },
 
-  apply_forces: function() {
-    var dx = 0;
-    var dy = 0;
-    var forceCount = this.forces.length;
-    for(var i = 0; i < forceCount; i++) {
-
-      dx += this.forces[i].x;
-      dy += this.forces[i].y;
-      
-      this.forces[i].t--;
-      if(this.forces[i].t == 0)
-      {
-        this.forces.splice(i, 1);
-        forceCount--;
-        i--;
-      }
-    }
-    this.x += dx;
-    this.y += dy;
-  },
 });

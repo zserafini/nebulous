@@ -2,9 +2,12 @@ var socket = io();
 var player;
 Crafty.scene('Game', function() {
 
+  get_map = function() {
+    socket.emit('map request', { x: player.coordinate.x, y: player.coordinate.y });
+  };
+
   socket.on('map request', function(new_map) {
     Map.map.layout = new_map;
-    console.log(new_map);
     Map.initialize();
   });
 
@@ -16,26 +19,21 @@ Crafty.scene('Game', function() {
     Map.move_other_player(updated_player);
   });
 
+  get_player = function() {
+    username = Math.random().toString(); 
+    socket.emit('player request', { username: username });
+  };
+
   socket.on('player request', function(player_data) {
 
     player = Crafty.e('Player')
       .set_center(player_data.x, player_data.y)
       .attr('username', player_data.username)
       .attr('z', 500)
-      .bind('EnterFrame', function() { this.walk(); });
 
     get_map();
 
   });
-
-  get_map = function() {
-    socket.emit('map request', { x: player.coordinate.x, y: player.coordinate.y });
-  };
-
-  get_player = function() {
-    username = Math.random().toString(); 
-    socket.emit('player request', { username: username });
-  };
 
   get_player();
 
