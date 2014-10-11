@@ -14,7 +14,7 @@ Crafty.c('Actor', {
     this.x = player._x+dx;
     this.y = player._y+64+dy - (z*64);
     this.z = y*2-x;
-    this.coordinates = { x: x, y: y };
+    this.coordinate = { x: x, y: y };
     return this;
   },
 

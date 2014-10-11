@@ -1,7 +1,8 @@
 module.exports = {
 
+  players: {}, // in memory storage off all players online (key:username)
 
-  players: [], // in memory storage off all players online
+  layout: [], //in memory storage of map
 
   initialize: function() {
     console.log('building map');
@@ -23,8 +24,6 @@ module.exports = {
     console.log('building map complete');
   },
 
-  layout: [],
-
   get_local_map: function(coordinates) {
     var radius= 8;
     var hash_map = {};
@@ -41,7 +40,11 @@ module.exports = {
     //smart selection of map tiles goes here
   },
 
-  add_player: function(data) {
-    this.players.push(data);
+  add_player: function(new_player) {
+    this.players[new_player.username] = new_player;
+  },
+
+  update_player: function(updated_player) {
+    this.players[updated_player.username] = updated_player;
   },
 }

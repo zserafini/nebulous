@@ -2,7 +2,7 @@ Map = {
   
   radius: 4,
 
-  players: [],
+  players: {},
 
   tile: {
     width:  128,
@@ -20,7 +20,7 @@ Map = {
         var tile_data = this.map.layout[key]
         Crafty.e(tile_data.type)
           .at(x, y, 0)
-          .bind("Click", function() { player.walk_to(this.coordinates) })
+          .bind("Click", function() { player.walk_to(this.coordinate) })
       }
     }
   },
@@ -41,8 +41,13 @@ Map = {
 
   add_player: function(new_player_data) {
     var new_player = Crafty.e('Other Player')
-      .at(new_player_data.x, new_player_data.y, 1)
-      .attr('z', 499)
+      .at(new_player_data.x, new_player_data.y, 1);
+
+    this.players[new_player_data.username] = new_player;
+  },
+
+  move_other_player: function(updated_player_data) {
+    this.players[updated_player_data.username].add_movement(updated_player_data);
   },
 
 }
