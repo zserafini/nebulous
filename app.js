@@ -4,14 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var map = require('./models/map');
-map.initialize();
 
+app = require('express')();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var api = require('./socket/socket');
 
-var app = require('express')();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,29 +56,6 @@ app.use(function(err, req, res, next) {
         message: err.message,
         error: {}
     });
-});
-
-//Socket.IO
-
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
-io.on('connection', function(socket){
-
-  console.log('a user connected');
-
-  socket.on('map request', function(coordinates){
-    console.log(coordinates);
-    socket.emit('map request', map.get_local_map(coordinates));
-  });
-
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
-
-http.listen(3000, function(){
-  console.log('listening on *:3000');
 });
 
 module.exports = app;

@@ -2,7 +2,7 @@ var socket = io();
 Crafty.scene('Game', function() {
 
   player = Crafty.e('Player')
-    .set_center(130,130)//replace static values with server response
+    .set_center(130,130)
     .attr('z', 500)
     .bind('EnterFrame', function() { this.walk(); });
 
@@ -10,6 +10,10 @@ Crafty.scene('Game', function() {
     Map.map.layout = new_map;
     console.log(new_map);
     Map.initialize();
+  });
+
+  socket.on('add player', function(new_player) {
+    Map.add_player(new_player);
   });
 
   update_map = function() {
