@@ -31,6 +31,8 @@ Crafty.c('Actor', {
       if(this.forces[i].t == 0)
       {
         this.forces.splice(i, 1);
+        forceCount--;
+        i--;
       }
     }
     this.x += dx;
