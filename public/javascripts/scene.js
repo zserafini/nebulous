@@ -29,7 +29,7 @@ Crafty.scene('Game', function() {
     player = Crafty.e('Player')
       .set_center(player_data.x, player_data.y)
       .attr('username', player_data.username)
-      .attr('z', 500)
+      .attr('z', 500);
 
     get_map();
 

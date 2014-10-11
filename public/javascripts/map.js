@@ -20,7 +20,7 @@ Map = {
         var tile_data = this.map.layout[key]
         Crafty.e(tile_data.type)
           .at(x, y, 0)
-          .bind("Click", function() { player.walk_to(this.coordinate) })
+          .bind("Click", function() { player.walk_to(this.relative_coordinate) })
       }
     }
   },

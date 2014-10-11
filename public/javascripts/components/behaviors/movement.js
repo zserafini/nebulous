@@ -24,6 +24,7 @@ Crafty.c('Movement', {
       this.attr('movement_lock', 32);
       this.coordinate.x = next_step.x;
       this.coordinate.y = next_step.y;
+      this.update_attributes();
 
       if(this == player) {
         socket.emit('update player position', { username: this.username, x: this.coordinate.x, y: this.coordinate.y });
@@ -35,7 +36,7 @@ Crafty.c('Movement', {
       var forceCount = this.forces.length;
       for(var i = 0; i < forceCount; i++) {
         var force = this.forces.splice(i, 1);
-        flipped_force = {x: -force[0].x, y: -force[0].y, t: force[0].t}
+        flipped_force = {x: -force[0].x, y: -force[0].y, t: force[0].t};
         Crafty.trigger('moveBackground', flipped_force);
       }
     } else {
