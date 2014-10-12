@@ -102,8 +102,15 @@ Map = {
   },
 
   add_object_to_map: function(object_data) {
+
+    if(Map.visible_objects[object_data.uniqueID] !== undefined)
+    {
+      return; //the objects already on the map
+    }
+
     var new_object = Crafty.e(object_data.type)
       .at(object_data.coordinate.x, object_data.coordinate.y, object_data.coordinate.z)
+      .attr('uniqueID', object_data.uniqueID);
 
     Map.visible_objects[object_data.uniqueID] = new_object;
   },
@@ -126,6 +133,8 @@ Map = {
   remove_old_objects: function() {
     $.each(this.visible_objects, function(id,object) {
       if(Math.abs(object.coordinate.x-player.coordinate.x) > Map.radius || Math.abs(object.coordinate.y-player.coordinate.y) > Map.radius) {
+        var uniqueID = object.uniqueID;
+        delete Map.visible_objects[uniqueID];
         object.destroy();
       }
     });
