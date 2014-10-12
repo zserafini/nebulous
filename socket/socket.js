@@ -12,6 +12,8 @@ io.on('connection', function(socket){
   });
 
   socket.on('update player position', function(player_data){
+    old_player_data = map.get_player(player_data.username);
+    socket.emit('update map', map.update_local_map(old_player_data, player_data));
     updated_player = {username: player_data.username, x: player_data.x, y: player_data.y};
     map.update_player(updated_player);
     socket.broadcast.emit('update player position', updated_player);

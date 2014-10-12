@@ -12,6 +12,10 @@ Crafty.scene('Game', function() {
     Map.initialize();
   });
 
+  socket.on('update map', function(updated_tiles) {
+    Map.map.insert_new_records(updated_tiles);
+  });
+
   socket.on('add other player', function(new_player) {
     Map.add_player(new_player);
   });

@@ -10,8 +10,8 @@ Crafty.c('Actor', {
     dx = ((x-player.coordinate.x)*64) + ((y-player.coordinate.y)*64);
     dy = (-(x-player.coordinate.x)*32) + ((y-player.coordinate.y)*32);
 
-    this.x = player._x+dx;
-    this.y = player._y+64+dy - (z*64);
+    this.x = player._x+player.dx+dx;
+    this.y = player._y+player.dy+64+dy - (z*64);
     this.coordinate = { x: x, y: y, z: z };
     this.update_attributes();
     return this;

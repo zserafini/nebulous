@@ -16,9 +16,11 @@ Crafty.c('Movement', {
     {
       var next_step = this.movement_queue.shift();
 
-      var dx = (next_step.x-this.coordinate.x)*2 + (next_step.y-this.coordinate.y)*2;
-      var dy = -(next_step.x-this.coordinate.x) + (next_step.y-this.coordinate.y);
-      var force = {x: dx, y: dy, t: 32};
+      var dx = next_step.x-this.coordinate.x;
+      var dy = next_step.y-this.coordinate.y;
+      var xf = dx*2 + dy*2;
+      var yf = -dx + dy;
+      var force = {x: xf, y: yf, t: 32};
       this.forces.push(force);
 
       this.attr('movement_lock', 32);
@@ -28,6 +30,10 @@ Crafty.c('Movement', {
 
       if(this == player) {
         socket.emit('update player position', { username: this.username, x: this.coordinate.x, y: this.coordinate.y });
+        player.dx = force.x*force.t;
+        player.dy = force.y*force.t;
+        Map.draw_new_tiles(dx, dy);
+        Map.remove_old_tiles(dx,dy);
       }
     }
 

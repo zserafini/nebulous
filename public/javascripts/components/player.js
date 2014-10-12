@@ -8,6 +8,8 @@ Crafty.c('Player', {
       this.x = $( "#cr-stage" ).width()/2-128; 
       this.y = $( "#cr-stage" ).height()/2-128; 
       this.attr('coordinate', { x: x_cord, y: y_cord, z: 1 });
+      this.attr('dx', 0);
+      this.attr('dy', 0);
       this.username = Math.random().toString();
       return this;
   },
