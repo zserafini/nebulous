@@ -8,6 +8,15 @@ Crafty.c('Movement', {
   },
 
   move: function() {
+
+    if(this == player && this.movement_lock == 0) {
+        while(player.add_object_queue.length > 0)
+        {
+          var new_object = player.add_object_queue.shift();
+          Map.add_object_to_map(new_object);
+        }
+    }
+
     if(this.movement_lock > 0)
     {
       this.movement_lock--;
@@ -29,12 +38,10 @@ Crafty.c('Movement', {
       this.update_attributes();
 
       if(this == player) {
-        socket.emit('update player position', { username: this.username, x: this.coordinate.x, y: this.coordinate.y });
-        player.dx = force.x*force.t;
-        player.dy = force.y*force.t;
-        Map.draw_new_tiles(dx, dy);
-        Map.remove_old_tiles(dx,dy);
-      }
+        socket.emit('update player position', { username: this.username, coordinate: this.coordinate, uniqueID: this.uniqueID });
+        Map.find_new_objects(dx, dy);
+        Map.remove_old_objects(dx,dy);
+      } 
     }
 
     if(this == player){
@@ -50,8 +57,8 @@ Crafty.c('Movement', {
     }
   },
 
-  add_movement: function(data) {
-    this.movement_queue.push({x: data.x, y: data.y});
+  add_movement: function(object) {
+    this.movement_queue.push({x: object.coordinate.x, y: object.coordinate.y});
   },
 
   apply_forces: function() {
