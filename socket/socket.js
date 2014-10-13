@@ -1,6 +1,7 @@
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var map = require('../models/map');
+var _ = require('lodash-node');
 map.initialize();
 
 io.on('connection', function(socket){
@@ -12,16 +13,19 @@ io.on('connection', function(socket){
   });
 
   socket.on('update player position', function(player_data){
-    updated_player = {username: player_data.username, x: player_data.x, y: player_data.y};
-    map.update_player(updated_player);
-    socket.broadcast.emit('update player position', updated_player);
+    old_player_data = map.get_player(player_data.username);
+    socket.emit('update map', map.update_local_map(old_player_data, player_data));
+    map.update_player(player_data);
+    socket.broadcast.emit('update player position', player_data);
   });
 
   socket.on('player request', function(player_data){
-    new_player = {username: player_data.username, x: 130, y: 130};
+    var uniqueID = Math.random().toString(); 
+    new_player = {username: player_data.username, coordinate: {x: 130, y: 130, z: 1}, uniqueID: uniqueID};
     map.add_player(new_player);
     socket.emit('player request', new_player);
-    socket.broadcast.emit('add other player', new_player);
+    var cleaned_player = _.extend({type: 'Other Player'}, new_player);
+    socket.broadcast.emit('add other player', cleaned_player);
   });
 
   socket.on('disconnect', function(){

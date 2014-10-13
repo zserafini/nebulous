@@ -8,6 +8,15 @@ Crafty.c('Movement', {
   },
 
   move: function() {
+
+    if(this == player && this.movement_lock == 0) {
+        while(player.add_object_queue.length > 0)
+        {
+          var new_object = player.add_object_queue.shift();
+          Map.add_object_to_map(new_object);
+        }
+    }
+
     if(this.movement_lock > 0)
     {
       this.movement_lock--;
@@ -16,9 +25,11 @@ Crafty.c('Movement', {
     {
       var next_step = this.movement_queue.shift();
 
-      var dx = (next_step.x-this.coordinate.x)*2 + (next_step.y-this.coordinate.y)*2;
-      var dy = -(next_step.x-this.coordinate.x) + (next_step.y-this.coordinate.y);
-      var force = {x: dx, y: dy, t: 32};
+      var dx = next_step.x-this.coordinate.x;
+      var dy = next_step.y-this.coordinate.y;
+      var xf = dx*2 + dy*2;
+      var yf = -dx + dy;
+      var force = {x: xf, y: yf, t: 32};
       this.forces.push(force);
 
       this.attr('movement_lock', 32);
@@ -27,8 +38,10 @@ Crafty.c('Movement', {
       this.update_attributes();
 
       if(this == player) {
-        socket.emit('update player position', { username: this.username, x: this.coordinate.x, y: this.coordinate.y });
-      }
+        socket.emit('update player position', { username: this.username, coordinate: this.coordinate, uniqueID: this.uniqueID });
+        Map.find_new_objects(dx, dy);
+        Map.remove_old_objects(dx,dy);
+      } 
     }
 
     if(this == player){
@@ -44,8 +57,8 @@ Crafty.c('Movement', {
     }
   },
 
-  add_movement: function(data) {
-    this.movement_queue.push({x: data.x, y: data.y});
+  add_movement: function(object) {
+    this.movement_queue.push({x: object.coordinate.x, y: object.coordinate.y});
   },
 
   apply_forces: function() {

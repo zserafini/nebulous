@@ -2,12 +2,15 @@ Crafty.c('Player', {
   init: function() {
     this.requires('Actor, player_sprite')
     .areaMap([42,0],[86,0],[86,112],[42,112])
+    .attr('add_object_queue', [])
   },
 
   set_center: function(x_cord, y_cord) {
       this.x = $( "#cr-stage" ).width()/2-128; 
       this.y = $( "#cr-stage" ).height()/2-128; 
       this.attr('coordinate', { x: x_cord, y: y_cord, z: 1 });
+      this.attr('dx', 0);
+      this.attr('dy', 0);
       this.username = Math.random().toString();
       return this;
   },

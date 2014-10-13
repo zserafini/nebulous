@@ -10,10 +10,9 @@ Crafty.c('Actor', {
     dx = ((x-player.coordinate.x)*64) + ((y-player.coordinate.y)*64);
     dy = (-(x-player.coordinate.x)*32) + ((y-player.coordinate.y)*32);
 
-    this.x = player._x+dx;
-    this.y = player._y+64+dy - (z*64);
+    this.x = player._x+player.dx+dx;
+    this.y = player._y+player.dy+64+dy - (z*64);
     this.coordinate = { x: x, y: y, z: z };
-    console.log(this.coordinate.x);
     this.update_attributes();
     return this;
   },
@@ -30,7 +29,7 @@ Crafty.c('Actor', {
   update_z_level: function() {
     var adjusted_y = -this.relative_coordinate.y+Map.radius
     var adjusted_x = this.relative_coordinate.x+Map.radius
-    this.z = 2*(adjusted_y)+(adjusted_x)+3*this.coordinate.z;
+    this.z = 2*(adjusted_y)+(adjusted_x)+8*this.coordinate.z;
   },
 
 });
