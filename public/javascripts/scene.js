@@ -3,25 +3,29 @@ var player;
 Crafty.scene('Game', function() {
 
   get_map = function() {
-    Map.map.initialize();
+    Map.initialize();
     socket.emit('map request', { x: player.coordinate.x, y: player.coordinate.y });
   };
 
   socket.on('map request', function(new_map) {
-    Map.map.insert_new_records(new_map);
-    Map.initialize();
+    Map.insert_new_records(new_map);
+    MapRenderer.initialize();
   });
 
   socket.on('update map', function(new_objects) {
-    Map.map.insert_new_records(new_objects);
+    Map.insert_new_records(new_objects);
   });
 
-  socket.on('add other player', function(new_player) {
-    Map.add_player(new_player);
+  socket.on('add other player', function(new_player_data) {
+    Map.insert_new_object(new_player_data);
+    //TODO: add check to see if should be added
+    player.add_object_queue.push(new_player_data);
   });
 
-  socket.on('update player position', function(updated_player) {
-    Map.move_other_player(updated_player);
+  socket.on('update player position', function(updated_player_data) {
+    Map.update_object(updated_player_data);
+    //TODO: add check to see if even visible
+    MapRenderer.visible_objects[updated_player_data.uniqueID].add_movement(updated_player_data);
   });
 
   socket.on('reconnect_attempt', function() {

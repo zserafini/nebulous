@@ -27,8 +27,8 @@ Crafty.c('Actor', {
   },
 
   update_z_level: function() {
-    var adjusted_y = -this.relative_coordinate.y+Map.radius
-    var adjusted_x = this.relative_coordinate.x+Map.radius
+    var adjusted_y = -this.relative_coordinate.y+MapRenderer.radius
+    var adjusted_x = this.relative_coordinate.x+MapRenderer.radius
     this.z = 2*(adjusted_y)+(adjusted_x)+8*this.coordinate.z;
   },
 

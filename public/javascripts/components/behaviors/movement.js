@@ -13,7 +13,7 @@ Crafty.c('Movement', {
         while(player.add_object_queue.length > 0)
         {
           var new_object = player.add_object_queue.shift();
-          Map.add_object_to_map(new_object);
+          MapRenderer.add_object_to_map(new_object);
         }
     }
 
@@ -39,8 +39,8 @@ Crafty.c('Movement', {
 
       if(this == player) {
         socket.emit('update player position', { username: this.username, coordinate: this.coordinate, uniqueID: this.uniqueID });
-        Map.find_new_objects(dx, dy);
-        Map.remove_old_objects(dx,dy);
+        MapRenderer.find_new_objects(dx, dy);
+        MapRenderer.remove_old_objects(dx,dy);
       } 
     }
 
