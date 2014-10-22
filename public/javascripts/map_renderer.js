@@ -1,6 +1,6 @@
 MapRenderer = {
   
-  radius: 4,
+  radius: 5,
 
   visible_objects: {},
 
