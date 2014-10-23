@@ -38,6 +38,7 @@ Crafty.c('Movement', {
       this.update_attributes();
 
       if(this == player) {
+        this.animate('Walk', 1);
         socket.emit('update player position', { username: this.username, coordinate: this.coordinate, uniqueID: this.uniqueID });
         MapRenderer.find_new_objects(dx, dy);
         MapRenderer.remove_old_objects(dx,dy);
