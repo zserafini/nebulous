@@ -20,7 +20,6 @@ MapRenderer = {
   },
 
   add_object_to_map: function(object_data) {
-
     if(this.visible_objects[object_data.uniqueID] !== undefined)
     {
       return; //the objects already on the map

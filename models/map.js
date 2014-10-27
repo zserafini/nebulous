@@ -60,9 +60,16 @@ module.exports = {
 
   add_player: function(new_player) {
     this.players[new_player.username] = new_player;
+    this.layout[new_player.coordinate.x][new_player.coordinate.y].push(new_player);
   },
 
   update_player: function(updated_player) {
+    var old_data = this.players[updated_player.username];
+    var old_location = this.layout[old_data.coordinate.x][old_data.coordinate.y];
+
+    _.remove(old_location, function(object) { return object.uniqueID == updated_player.uniqueID; });
+
+    this.layout[updated_player.coordinate.x][updated_player.coordinate.y].push(updated_player);
     this.players[updated_player.username] = updated_player;
   },
 
