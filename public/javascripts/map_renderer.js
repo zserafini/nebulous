@@ -24,12 +24,20 @@ MapRenderer = {
     {
       return; //the objects already on the map
     }
+    if(!this.is_in_range(object_data))
+    {
+      return;
+    }
 
     var new_object = Crafty.e(object_data.type)
       .at(object_data.coordinate.x, object_data.coordinate.y, object_data.coordinate.z)
       .attr('uniqueID', object_data.uniqueID);
 
     this.visible_objects[object_data.uniqueID] = new_object;
+  },
+
+  is_in_range: function(object) {
+    return Math.abs(object.coordinate.x-player.coordinate.x) <= this.radius && Math.abs(object.coordinate.y-player.coordinate.y) <= this.radius;
   },
 
   find_new_objects: function(dx, dy) {
@@ -49,12 +57,17 @@ MapRenderer = {
 
   remove_old_objects: function() {
     $.each(this.visible_objects, function(id,object) {
-      if(Math.abs(object.coordinate.x-player.coordinate.x) > MapRenderer.radius || Math.abs(object.coordinate.y-player.coordinate.y) > MapRenderer.radius) {
+      if(!MapRenderer.is_in_range(object)) {
         var uniqueID = object.uniqueID;
         delete MapRenderer.visible_objects[uniqueID];
         object.destroy();
       }
     });
   },
-}
 
+  remove_object: function(object) {
+    delete this.visible_objects[object.uniqueID];
+    object.destroy();
+  },
+
+}

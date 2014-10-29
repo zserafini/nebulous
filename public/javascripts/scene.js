@@ -18,14 +18,11 @@ Crafty.scene('Game', function() {
 
   socket.on('add other player', function(new_player_data) {
     Map.insert_new_object(new_player_data);
-    //TODO: add check to see if should be added
     player.add_object_queue.push(new_player_data);
   });
 
   socket.on('update player position', function(updated_player_data) {
     Map.update_object(updated_player_data);
-    //TODO: add check to see if even visible
-    MapRenderer.visible_objects[updated_player_data.uniqueID].add_movement(updated_player_data);
   });
 
   socket.on('reconnect_attempt', function() {

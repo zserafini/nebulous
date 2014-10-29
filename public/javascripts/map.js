@@ -29,6 +29,7 @@ Map = {
 
   remove_old_object: function(uniqueID) {
     var old_object = this.known_objects[uniqueID];
+    if(!old_object) { return false; }
     var storage_location = this.layout[old_object.map_layout.x][old_object.map_layout.y];
     var loop_size = storage_location.length;
     for(var i =0; i < loop_size; i++)
@@ -72,10 +73,25 @@ Map = {
   },
 
   update_object: function(object) {
-    var old_object = this.remove_old_object(object.uniqueID);
+    var old_object = this.remove_old_object(object.uniqueID) || {};
     var new_object = $.extend(old_object, object);
     delete this.known_objects[old_object.uniqueID];
     this.insert_new_object(new_object);
+
+    //Update visible map too if needed
+    var visible_object = MapRenderer.visible_objects[object.uniqueID];
+    if(visible_object && !(MapRenderer.is_in_range(new_object)))
+    {
+      MapRenderer.remove_object(visible_object);
+    } 
+    else if(visible_object) 
+    { 
+      visible_object.add_movement(new_object);
+    } 
+    else if(MapRenderer.is_in_range(new_object)) 
+    {
+      player.add_object_queue.push(new_object);
+    }
   },
 
   get_objects: function(x, y) {
