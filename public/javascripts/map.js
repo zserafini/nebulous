@@ -72,13 +72,9 @@ Map = {
   },
 
   update_object: function(object) {
-    console.log(2);
     var old_object = this.remove_old_object(object.uniqueID);
-    console.log(2);
     var new_object = $.extend(old_object, object);
-    console.log(2);
     delete this.known_objects[old_object.uniqueID];
-    console.log(2);
     this.insert_new_object(new_object);
   },
 
