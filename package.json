@@ -15,5 +15,6 @@
     "serve-favicon": "~2.0.1",
     "socket.io": "^1.0.6",
     "lodash-node": "~2.4.1"
+    "jasmine-node": "~1.14.5"
   }
 }
