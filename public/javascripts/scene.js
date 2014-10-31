@@ -21,18 +21,20 @@ Crafty.scene('Game', function() {
     player.add_object_queue.push(new_player_data);
   });
 
-  socket.on('update player position', function(updated_player_data) {
-    Map.update_object(updated_player_data);
+  socket.on('update player position', function(updated_player) {
+    if(updated_player.uniqueID == player.uniqueID) {
+      return; //don't let no stinkin server tell you what to do
+    }
+    Map.update_object(updated_player);
+  });
+
+  socket.on('user logoff', function(user) {
+    Map.remove_object(user);
   });
 
   socket.on('reconnect_attempt', function() {
     console.log('attempting socket reconnect');
   });
-
-  get_player = function() {
-    username = Math.random().toString(); 
-    socket.emit('player request', { username: username });
-  };
 
   socket.on('player request', function(player_data) {
 
@@ -45,8 +47,6 @@ Crafty.scene('Game', function() {
     get_map();
 
   });
-
-  get_player();
 
 });
 

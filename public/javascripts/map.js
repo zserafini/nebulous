@@ -44,10 +44,15 @@ Map = {
     return old_object;
   },
 
+  remove_object: function(object) {
+    this.remove_old_object(object);
+    MapRenderer.remove_object(object);
+  },
+
   insert_new_object: function(new_object) {
     if(this.known_objects[new_object.uniqueID] !== undefined){
       return; //we already know bout this guy!
-    }
+    } 
 
     var x = new_object.coordinate.x%this.size();
     var y = new_object.coordinate.y%this.size();

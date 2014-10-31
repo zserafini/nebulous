@@ -66,8 +66,11 @@ MapRenderer = {
   },
 
   remove_object: function(object) {
-    delete this.visible_objects[object.uniqueID];
-    object.destroy();
+    if(visible_object = this.visible_objects[object.uniqueID])
+    {
+      delete this.visible_objects[object.uniqueID];
+      visible_object.destroy();
+    }
   },
 
 }
