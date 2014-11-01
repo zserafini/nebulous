@@ -37,16 +37,15 @@ Crafty.scene('Game', function() {
   });
 
   socket.on('player request', function(player_data) {
-
     player = Crafty.e('Player')
       .set_center(player_data.coordinate.x, player_data.coordinate.y)
       .attr('username', player_data.username)
       .attr('uniqueID', player_data.uniqueID)
       .attr('z', 500);
-
     get_map();
-
   });
+
+  socket.emit('ready for player');
 
 });
 
