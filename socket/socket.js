@@ -9,7 +9,11 @@ map.initialize();
 io.on('connection', function(socket){
 
   console.log('a user connected');
-  var current_user = new User(socket);
+  var current_user;
+
+  socket.on('ready for player', function(){
+    current_user = new User(socket);
+  });
 
   socket.on('map request', function(coordinates){
     full_map = current_user.get_map(coordinates);
