@@ -14,6 +14,7 @@ MapRenderer = {
 
   add_coordinate_to_objects_queue: function(x, y) {
     var objects_data = Map.get_objects(x, y);
+
     $.each(objects_data, function(index, value) {
       player.add_object_queue.push(this);
     });

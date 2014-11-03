@@ -100,7 +100,15 @@ Map = {
   },
 
   get_objects: function(x, y) {
-    return this.layout[x%this.size()][y%this.size()];
+    if(x >= 0 && y >= 0){
+      requested_data = this.layout[x%this.size()][y%this.size()];
+    }
+    //ensure we have requested data in local map storage
+    if(requested_data && requested_data.length > 0 && requested_data[0].coordinate.x == x && requested_data[0].coordinate.y ==y)
+    {
+      return requested_data;
+    }
+    return [];
   },
 
   build_walkable_grid: function() {
