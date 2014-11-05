@@ -23,19 +23,18 @@ io.on('connection', function(socket){
   socket.on('update player position', function(player_data){
     if(current_user) {
       if(!current_user.verify(player_data)) {
-        console.log('ERROR: Invalid Object');
+        console.log('ERROR: Invalid Object On Update');
         console.log(player_data);
         return;
       }
-      var updated_map = current_user.update(player_data);
-      socket.emit('update map', updated_map);
+      current_user.update(player_data);
     }
   });
 
   socket.on('disconnect', function(){
     if(current_user) {
       if(!current_user.verify(current_user.user)) {
-        console.log('ERROR: Invalid Object');
+        console.log('ERROR: Invalid Object On Disconnect');
         console.log(current_user);
         return;
       }

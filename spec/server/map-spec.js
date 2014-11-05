@@ -1,15 +1,6 @@
 var map = require("../../lib/map.js");
 var valid_map_object = jasmine.objectContaining({type: jasmine.any(String), uniqueID: jasmine.any(String), coordinate: jasmine.objectContaining({ x: jasmine.any(Number), y: jasmine.any(Number)})});
 
-describe("map", function() {
-  it("runs the specs", function() {
-    expect(true).toBe(true);
-  });
-  it("can access map functions", function() {
-    expect(map.radius).toBe(8);
-  });
-});
-
 describe("Initializing the map", function() {
 
   beforeEach(function() {
