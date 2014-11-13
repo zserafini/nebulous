@@ -8,6 +8,7 @@ Crafty.scene('Game', function() {
   };
 
   socket.on('map request', function(new_map) {
+    console.log(new_map);
     Map.insert_new_records(new_map);
     MapRenderer.initialize();
   });
@@ -26,6 +27,10 @@ Crafty.scene('Game', function() {
       return; //don't let no stinkin server tell you what to do
     }
     Map.update_object(updated_player);
+  });
+
+  socket.on('update object position', function(updated_object) {
+    Map.update_object(updated_object);
   });
 
   socket.on('user logoff', function(user) {
@@ -57,7 +62,8 @@ Crafty.scene('Loading', function(){
 
   Crafty.load([
     'images/sprite.png',
-    'images/player.png'
+    'images/player.png',
+    'images/fox.png'
     ], function(){
       Crafty.sprite(128, "images/sprite.png", {
         grass_sprite: [0,0,1,1],
@@ -65,6 +71,9 @@ Crafty.scene('Loading', function(){
       });
       Crafty.sprite(128, "images/player.png", {
         player_sprite: [0,0,1,1]
+      });
+      Crafty.sprite(128, "images/fox.png", {
+        fox_sprite: [0,0,1,1]
       });
       Crafty.scene('Game');
     })

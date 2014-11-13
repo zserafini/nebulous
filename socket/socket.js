@@ -1,10 +1,14 @@
 var http = require('http').Server(app);
-io = require('socket.io')(http);
 var user = require('../lib/user');
-socket_helpers = require('../lib/socket-helpers');
-map = require('../lib/map');
+var fox = require('../lib/fox');
 _ = require('lodash-node');
+io = require('socket.io')(http);
+map = require('../lib/map');
+timer = require('../lib/timer');
+socket_helpers = require('../lib/socket-helpers');
+
 map.initialize();
+timer.start();
 
 io.on('connection', function(socket){
 
@@ -33,7 +37,7 @@ io.on('connection', function(socket){
 
   socket.on('disconnect', function(){
     if(current_user) {
-      if(!current_user.verify(current_user.user)) {
+      if(!current_user.verify(current_user.data)) {
         console.log('ERROR: Invalid Object On Disconnect');
         console.log(current_user);
         return;

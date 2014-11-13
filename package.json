@@ -16,6 +16,7 @@
     "socket.io": "^1.0.6",
     "lodash-node": "~2.4.1",
     "jasmine-node": "~1.14.5",
+    "jsdom": "~1.2.1",
     "socket.io-client": "~1.2.0"
   }
 }
