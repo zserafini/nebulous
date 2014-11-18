@@ -120,6 +120,9 @@ Map = {
         var relative_y = player.coordinate.y-this.storage_radius;
         var objects = this.get_objects(x, y);
         var open = 1;
+        if(objects.length == 0) {
+          open = 0;
+        }
         for (var i = 0; i < objects.length; i++) {
           if(objects[i].closed == true) { open = 0; }
         }
