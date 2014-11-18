@@ -30,7 +30,7 @@ Map = {
   remove_old_object: function(uniqueID) {
     var old_object = this.known_objects[uniqueID];
     if(!old_object) { return false; }
-    var storage_location = this.layout[old_object.map_layout.x][old_object.map_layout.y];
+    var storage_location = this.layout[old_object.coordinate.x][old_object.coordinate.y];
     var loop_size = storage_location.length;
     for(var i =0; i < loop_size; i++)
     {
@@ -72,7 +72,7 @@ Map = {
       }
     }
 
-    var clean_new_object = $.extend({}, new_object, {map_layout: {x: x, y: y}});
+    var clean_new_object = $.extend({}, new_object);
     this.known_objects[new_object.uniqueID] = clean_new_object;
     storage_location.push(clean_new_object);
   },
