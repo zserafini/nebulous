@@ -1,6 +1,6 @@
 Crafty.c('Player', {
   init: function() {
-    this.requires('Actor, player_sprite, SpriteAnimation')
+    this.requires('Actor, player_sprite, Animation')
     .areaMap([42,0],[86,0],[86,112],[42,112])
     .attr('add_object_queue', [])
   },
@@ -11,8 +11,8 @@ Crafty.c('Player', {
       this.attr('coordinate', { x: x_cord, y: y_cord, z: 1 });
       this.attr('dx', 0);
       this.attr('dy', 0);
+      this.attr('animations', {walk: 8});
       this.username = Math.random().toString();
-      this.reel('Walk', 600, 0, 0, 8);
       return this;
   },
 

@@ -20,6 +20,9 @@ Crafty.c('Movement', {
     if(this.movement_lock > 0)
     {
       this.movement_lock--;
+      if(this.movement_lock%4 == 0) {
+        this.walk();
+      }
     } 
     else if(this.movement_lock == 0 && this.movement_queue.length > 0)
     {
@@ -38,7 +41,6 @@ Crafty.c('Movement', {
       this.update_attributes();
 
       if(this == player) {
-        this.animate('Walk', 1);
         socket.emit('update player position', { username: this.username, coordinate: this.coordinate, uniqueID: this.uniqueID });
         MapRenderer.find_new_objects(dx, dy);
         MapRenderer.remove_old_objects(dx,dy);
@@ -65,11 +67,16 @@ Crafty.c('Movement', {
   apply_forces: function() {
     var dx = 0;
     var dy = 0;
+    var self_dx = 0;
     var forceCount = this.forces.length;
     for(var i = 0; i < forceCount; i++) {
 
       dx += this.forces[i].x;
       dy += this.forces[i].y;
+
+      if(this.forces[i].type !== 'background') {
+        self_dx += this.forces[i].x;
+      }
       
       this.forces[i].t--;
       if(this.forces[i].t == 0)
@@ -79,6 +86,9 @@ Crafty.c('Movement', {
         i--;
       }
     }
+    this.dx = dx;
+    this.dy = dy;
+    this.self_dx = self_dx;
     this.x += dx;
     this.y += dy;
   },

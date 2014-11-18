@@ -7,8 +7,8 @@ Crafty.c('Actor', {
 
   //used to place all objects other than player (use set_center)
   at: function(x, y, z) {
-    dx = ((x-player.coordinate.x)*64) + ((y-player.coordinate.y)*64);
-    dy = (-(x-player.coordinate.x)*32) + ((y-player.coordinate.y)*32);
+    var dx = ((x-player.coordinate.x)*64) + ((y-player.coordinate.y)*64);
+    var dy = (-(x-player.coordinate.x)*32) + ((y-player.coordinate.y)*32);
 
     this.x = player._x+player.dx+dx;
     this.y = player._y+player.dy+64+dy - (z*64);
