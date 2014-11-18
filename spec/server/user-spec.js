@@ -1,6 +1,7 @@
 map = require("../../lib/map.js");
 user = require("../../lib/user.js");
 fox = require("../../lib/fox.js");
+evergreen = require("../../lib/evergreen.js");
 _ = require('lodash-node');
 app = require('express')();
 http = require('http').Server(app);

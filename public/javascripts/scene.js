@@ -63,7 +63,8 @@ Crafty.scene('Loading', function(){
   Crafty.load([
     'images/sprite.png',
     'images/player.png',
-    'images/fox.png'
+    'images/fox.png',
+    'images/evergreen.png'
     ], function(){
       Crafty.sprite(128, "images/sprite.png", {
         grass_sprite: [0,0,1,1],
@@ -74,6 +75,9 @@ Crafty.scene('Loading', function(){
       });
       Crafty.sprite(128, "images/fox.png", {
         fox_sprite: [0,0,1,1]
+      });
+      Crafty.sprite(128, "images/evergreen.png", {
+        evergreen_sprite: [0,0,1,1]
       });
       Crafty.scene('Game');
     })
