@@ -1,5 +1,5 @@
 var http = require('http').Server(app);
-var user = require('../lib/user');
+var User = require("../lib/user.js");
 _ = require('lodash-node');
 map = require('../lib/map');
 io = require('socket.io')(http);
