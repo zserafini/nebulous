@@ -30,7 +30,7 @@ Map = {
   remove_old_object: function(uniqueID) {
     var old_object = this.known_objects[uniqueID];
     if(!old_object) { return false; }
-    var storage_location = this.layout[old_object.coordinate.x][old_object.coordinate.y];
+    var storage_location = this.layout[old_object.coordinate.x%this.size()][old_object.coordinate.y%this.size()];
     var loop_size = storage_location.length;
     for(var i =0; i < loop_size; i++)
     {

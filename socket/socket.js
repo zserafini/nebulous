@@ -1,10 +1,8 @@
 var http = require('http').Server(app);
 var user = require('../lib/user');
-var fox = require('../lib/fox');
-var evergreen = require('../lib/evergreen');
 _ = require('lodash-node');
-io = require('socket.io')(http);
 map = require('../lib/map');
+io = require('socket.io')(http);
 timer = require('../lib/timer');
 socket_helpers = require('../lib/socket-helpers');
 
