@@ -17,9 +17,9 @@ Crafty.scene('Game', function() {
     Map.insert_new_records(new_objects);
   });
 
-  socket.on('add other player', function(new_player_data) {
-    Map.insert_new_object(new_player_data);
-    player.add_object_queue.push(new_player_data);
+  socket.on('add object', function(new_object_data) {
+    Map.insert_new_object(new_object_data);
+    player.add_object_queue.push(new_object_data);
   });
 
   socket.on('update player position', function(updated_player) {

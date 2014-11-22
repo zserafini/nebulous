@@ -53,6 +53,9 @@ Map = {
     if(this.known_objects[new_object.uniqueID] !== undefined){
       return; //we already know bout this guy!
     } 
+    if(new_object.uniqueID == player.uniqueID){
+      return; //dont add yourself to list man - youre special
+    }
 
     var x = new_object.coordinate.x%this.size();
     var y = new_object.coordinate.y%this.size();
