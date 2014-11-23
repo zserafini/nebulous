@@ -45,7 +45,7 @@ Map = {
   },
 
   remove_object: function(object) {
-    this.remove_old_object(object);
+    this.remove_old_object(object.uniqueID);
     MapRenderer.remove_object(object);
   },
 
@@ -133,6 +133,13 @@ Map = {
       }
     }
     return walkable_grid;
+  },
+
+  is_object_in_scope: function(object) {
+    if(Math.abs(object.coordinate.x-player.coordinate.x) > this.storage_radius || Math.abs(object.coordinate.y-player.coordinate.y) > this.storage_radius) {
+      return false;
+    }
+    return true;
   },
 
 }

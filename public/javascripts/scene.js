@@ -33,6 +33,12 @@ Crafty.scene('Game', function() {
     Map.update_object(updated_object);
   });
 
+  socket.on('vacate notice', function(updated_object) {
+    if(!Map.is_object_in_scope(updated_object)){
+      Map.remove_old_object(updated_object.uniqueID);
+    }
+  });
+
   socket.on('user logoff', function(user) {
     Map.remove_object(user);
   });
