@@ -22,14 +22,10 @@ Crafty.scene('Game', function() {
     player.add_object_queue.push(new_object_data);
   });
 
-  socket.on('update player position', function(updated_player) {
-    if(updated_player.uniqueID == player.uniqueID) {
+  socket.on('update object position', function(updated_object) {
+    if(updated_object.uniqueID == player.uniqueID) {
       return; //don't let no stinkin server tell you what to do
     }
-    Map.update_object(updated_player);
-  });
-
-  socket.on('update object position', function(updated_object) {
     Map.update_object(updated_object);
   });
 

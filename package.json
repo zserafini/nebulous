@@ -13,7 +13,7 @@
     "jade": "~1.5.0",
     "morgan": "~1.2.3",
     "serve-favicon": "~2.0.1",
-    "socket.io": "^1.0.6",
+    "socket.io": "^1.2.1",
     "lodash-node": "~2.4.1",
     "jasmine-node": "~1.14.5",
     "jsdom": "~1.2.1",
