@@ -1,13 +1,18 @@
 Crafty.c('Player', {
   init: function() {
-    this.requires('Actor, player_sprite, Animation')
-    .areaMap([42,0],[86,0],[86,112],[42,112])
+    this.requires('Actor, Player_Sprite, Animation')
+    .areaMap(
+      [(11*_object_size)/32,0],
+      [(25*_object_size)/32,0],
+      [(25*_object_size)/32,(25*_object_size)/32],
+      [(11*_object_size)/32,(25*_object_size)/32]
+    )
     .attr('add_object_queue', [])
   },
 
   set_center: function(x_cord, y_cord) {
-      this.x = $( "#cr-stage" ).width()/2-128; 
-      this.y = $( "#cr-stage" ).height()/2-128; 
+      this.x = $( "#cr-stage" ).width()/2-_object_size/2; 
+      this.y = $( "#cr-stage" ).height()/2-_object_size/2; 
       this.attr('coordinate', { x: x_cord, y: y_cord, z: 1 });
       this.attr('dx', 0);
       this.attr('dy', 0);

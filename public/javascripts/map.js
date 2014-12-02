@@ -68,9 +68,6 @@ Map = {
     {
       if(storage_location[i].coordinate.x != new_object.coordinate.x || storage_location[i].coordinate.y != new_object.coordinate.y)
       {
-        if(this.known_objects[storage_location[i].uniqueID].type == 'Water' || this.known_objects[storage_location[i].uniqueID].type == 'Grass') {
-          console.log(new_object, ' removed a tile object at:', this.known_objects[storage_location[i].uniqueID].coordinate);
-        }
         delete this.known_objects[storage_location[i].uniqueID];
         storage_location.splice(i, 1);
         loop_size--;

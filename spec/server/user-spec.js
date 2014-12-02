@@ -66,7 +66,7 @@ describe("User Class", function() {
     });
 
     it("should set type", function() {
-      expect(cleaned_user.type).toEqual('Other Player');
+      expect(cleaned_user.type).toEqual('OtherPlayer');
     });
   });
 });

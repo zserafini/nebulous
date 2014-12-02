@@ -10,11 +10,10 @@ Crafty.c('Movement', {
   move: function() {
 
     if(this == player && this.movement_lock == 0) {
-        while(player.add_object_queue.length > 0)
-        {
-          var new_object = player.add_object_queue.shift();
-          MapRenderer.add_object_to_map(new_object);
-        }
+      while(player.add_object_queue.length > 0) {
+        var new_object = player.add_object_queue.shift();
+        MapRenderer.add_object_to_map(new_object);
+      }
     }
 
     if(this.movement_lock > 0)
@@ -71,8 +70,10 @@ Crafty.c('Movement', {
     var forceCount = this.forces.length;
     for(var i = 0; i < forceCount; i++) {
 
-      dx += this.forces[i].x;
-      dy += this.forces[i].y;
+      if(this.forces[i].t%(4/_map_scale) == 0) {
+        dx += this.forces[i].x;
+        dy += this.forces[i].y;
+      }
 
       if(this.forces[i].type !== 'background') {
         self_dx += this.forces[i].x;

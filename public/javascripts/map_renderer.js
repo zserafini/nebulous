@@ -27,7 +27,7 @@ MapRenderer = {
     }
     if(!this.is_in_range(object_data))
     {
-      return;
+      return; //the objects not in range
     }
 
     var new_object = Crafty.e(object_data.type)
