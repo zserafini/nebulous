@@ -4,6 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+gm = require('gm');
+sprite_sheet_generator = require('./lib/sprite_sheet_generator');
 
 app = require('express')();
 

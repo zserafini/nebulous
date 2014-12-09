@@ -1,5 +1,16 @@
 var socket = io();
 var player;
+
+var _map_scale = 1; //Only use 1, 2, or 4
+console.log($( window ).width());
+if($( window ).width() > 1200) {
+  var _map_scale = 4;
+} else if ($( window ).width() > 650) {
+  var _map_scale = 2;
+}
+
+var _object_size = _map_scale*32;
+
 Crafty.scene('Game', function() {
 
   get_map = function() {
@@ -62,25 +73,26 @@ Crafty.scene('Loading', function(){
     .text('Loading; please wait...')
     .css($text_css);
 
-  Crafty.load([
-    'images/sprite.png',
-    'images/player.png',
-    'images/fox.png',
-    'images/evergreen.png'
-    ], function(){
-      Crafty.sprite(128, "images/sprite.png", {
-        grass_sprite: [0,0,1,1],
-        water_sprite: [3,0,1,1],
-      });
-      Crafty.sprite(128, "images/player.png", {
-        player_sprite: [0,0,1,1]
-      });
-      Crafty.sprite(128, "images/fox.png", {
-        fox_sprite: [0,0,1,1]
-      });
-      Crafty.sprite(128, "images/evergreen.png", {
-        evergreen_sprite: [0,0,1,1]
-      });
-      Crafty.scene('Game');
-    })
+  var assets = [
+    'Evergreen_Sprite',
+    'Fox_Sprite',
+    'Grass_Sprite',
+    'OtherPlayer_Sprite',
+    'Player_Sprite',
+    'Water_Sprite'
+  ];
+
+  var asset_paths = $.map(assets, function(asset, i) {
+    return 'images/generated/' + asset + _object_size + '.png';
+  });
+
+  Crafty.load(asset_paths, function(){
+    $.each(assets, function(i, asset){
+      var path = 'images/generated/' + asset + _object_size + '.png';
+      var sprite_map = {};
+      sprite_map[asset] = [0,0,1,1];
+      Crafty.sprite(_object_size, path, sprite_map);
+    });
+    Crafty.scene('Game');
+  });
 });

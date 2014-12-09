@@ -1,3 +1,4 @@
+//Used to Animate Sprite
 Crafty.c('Animation', {
 
   init: function() {
@@ -11,7 +12,7 @@ Crafty.c('Animation', {
     } else {
       this.unflip('X');
     }
-    var x_plus = (this.__coord[0]/128)+1;
+    var x_plus = (this.__coord[0]/_object_size)+1;
     if(x_plus >= this.animations.walk) {
       this.sprite(0,0);
     } else {
