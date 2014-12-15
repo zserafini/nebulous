@@ -38,4 +38,29 @@ Crafty.c('Actor', {
     this.z = 2*(adjusted_y)+(adjusted_x)+8*this.coordinate.z;
   },
 
+  fade_in: function() {
+    var delay = Math.random();
+    this._fade_in_delay = (delay-0.04) / 3;
+    this._fade_in_call = function(){this.fade_in_bind()};
+    this.bind("EnterFrame", this._fade_in_call);
+  },
+
+  fade_in_bind: function() {
+    if(this._fade_in_delay > 0) {
+      this._fade_in_delay -= 0.01;
+    } else {
+      this.alpha += 0.04;
+      if(this.alpha >= 1) {
+        this.unbind("EnterFrame", this._fade_in_call);
+      }
+    }
+  },
+
+  //fade_in_bind: function() {
+  //  this.alpha += 0.04;
+  //  if(this.alpha >= 1) {
+  //    this.unbind("EnterFrame", this._fade_in_call);
+  //  }
+  //},
+
 });

@@ -2,9 +2,8 @@ var socket = io();
 var player;
 
 var _map_scale = 1; //Only use 1, 2, or 4
-console.log($( window ).width());
 if($( window ).width() > 1200) {
-  var _map_scale = 4;
+  var _map_scale = 2;
 } else if ($( window ).width() > 650) {
   var _map_scale = 2;
 }
