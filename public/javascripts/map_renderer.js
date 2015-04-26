@@ -32,7 +32,10 @@ MapRenderer = {
 
     var new_object = Crafty.e(object_data.type)
       .at(object_data.coordinate.x, object_data.coordinate.y, object_data.coordinate.z)
-      .attr('uniqueID', object_data.uniqueID);
+      .attr('uniqueID', object_data.uniqueID)
+      .attr('alpha', 0.01);
+
+    new_object.fade_in();
 
     this.visible_objects[object_data.uniqueID] = new_object;
   },
@@ -59,19 +62,42 @@ MapRenderer = {
   remove_old_objects: function() {
     $.each(this.visible_objects, function(id,object) {
       if(!MapRenderer.is_in_range(object)) {
-        var uniqueID = object.uniqueID;
-        delete MapRenderer.visible_objects[uniqueID];
-        object.destroy();
+        var delay = Math.random();
+        object._falloff_seed = (delay-0.04) / 3;
+        object.bind("EnterFrame", function() {
+          MapRenderer.fade_out(this);
+        });
       }
     });
   },
 
-  remove_object: function(object) {
-    if(visible_object = this.visible_objects[object.uniqueID])
-    {
-      delete this.visible_objects[object.uniqueID];
-      visible_object.destroy();
+  fade_out: function(object) {
+    if(object._falloff_seed > 0) {
+      object._falloff_seed -= 0.01
+    } else {
+      object.alpha -= 0.04;
+      if(object.alpha <= 0) {
+        var uniqueID = object.uniqueID;
+        delete MapRenderer.visible_objects[uniqueID];
+        object.destroy();
+      }
     }
   },
+
+  // Keep as a possible alternative to fade_out
+  //
+  // fall_off_map: function(object) {
+  //   if(object._falloff_seed > 0) {
+  //     object._falloff_seed -= 0.01
+  //   } else {
+  //     object.forces.push({x: 0, y: 1, t: 1000});
+  //     object.alpha -= 0.02
+  //     if(object._y > player._y*2) {
+  //       var uniqueID = object.uniqueID;
+  //       delete MapRenderer.visible_objects[uniqueID];
+  //       object.destroy();
+  //     }
+  //   }
+  // },
 
 }
