@@ -1,0 +1,13 @@
+block content
+  h1= title
+  div(id='options')
+    p(id='sizing')
+      label(for='map_width') X
+      input(type='text', id='map_width', class='sizing', value='10')
+      label(for='map_height') Y
+      input(type='text', id='map_height', class='sizing' value='10')
+
+  div(id='canvasWrapper')
+    canvas(id='canvas', width='500', height='500')
+    script(src='javascripts/lib/jquery-1.11.1.js')
+    script(src='javascripts/map_editor/layout.js')
