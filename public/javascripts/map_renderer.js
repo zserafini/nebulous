@@ -1,6 +1,6 @@
 MapRenderer = {
   
-  radius: 5,
+  radius: 8,
 
   visible_objects: {},
 
@@ -35,7 +35,10 @@ MapRenderer = {
       .attr('uniqueID', object_data.uniqueID)
       .attr('alpha', 0.01);
 
-    new_object.fade_in();
+    var delay = Math.random();
+    new_object._fade_in_delay = (delay-0.04) / 3;
+    new_object._fade_in_call = function(){MapRenderer.fade_in(this)};
+    new_object.bind("EnterFrame", new_object._fade_in_call);
 
     this.visible_objects[object_data.uniqueID] = new_object;
   },
@@ -63,24 +66,42 @@ MapRenderer = {
     $.each(this.visible_objects, function(id,object) {
       if(!MapRenderer.is_in_range(object)) {
         var delay = Math.random();
-        object._falloff_seed = (delay-0.04) / 3;
+        object._fade_out_delay = (delay-0.04) / 3;
         object.bind("EnterFrame", function() {
+          object.unbind("EnterFrame", object._fade_in_call);
           MapRenderer.fade_out(this);
         });
       }
     });
   },
 
+  fade_in: function(object) {
+    if(object._fade_in_delay > 0) {
+      object._fade_in_delay -= 0.01;
+    } else {
+      object.alpha += 0.04;
+      if(object.alpha >= 1) {
+        object.unbind("EnterFrame", object._fade_in_call);
+      }
+    }
+  },
+
   fade_out: function(object) {
-    if(object._falloff_seed > 0) {
-      object._falloff_seed -= 0.01
+    if(object._fade_out_delay > 0) {
+      object._fade_out_delay -= 0.01
     } else {
       object.alpha -= 0.04;
       if(object.alpha <= 0) {
-        var uniqueID = object.uniqueID;
-        delete MapRenderer.visible_objects[uniqueID];
-        object.destroy();
+        MapRenderer.remove_object(object);
       }
+    }
+  },
+
+  remove_object: function(object) {
+    if(visible_object = this.visible_objects[object.uniqueID])
+    {
+      delete this.visible_objects[object.uniqueID];
+      visible_object.destroy();
     }
   },
 
