@@ -1,6 +1,6 @@
 Map = {
   
-  storage_radius: 8,
+  storage_radius: 11,
 
   size: function() {
     return this.storage_radius*2+1;
