@@ -105,4 +105,20 @@ MapRenderer = {
     }
   },
 
+  // Keep as a possible alternative to fade_out
+  //
+  // fall_off_map: function(object) {
+  //   if(object._falloff_seed > 0) {
+  //     object._falloff_seed -= 0.01
+  //   } else {
+  //     object.forces.push({x: 0, y: 1, t: 1000});
+  //     object.alpha -= 0.02
+  //     if(object._y > player._y*2) {
+  //       var uniqueID = object.uniqueID;
+  //       delete MapRenderer.visible_objects[uniqueID];
+  //       object.destroy();
+  //     }
+  //   }
+  // },
+
 }
