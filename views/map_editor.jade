@@ -1,3 +1,18 @@
+link(rel='stylesheet', href='stylesheets/lib/jquery-ui.min.css')
+link(rel='stylesheet', href='stylesheets/lib/jquery-ui.structure.min.css')
+link(rel='stylesheet', href='stylesheets/lib/jquery-ui.theme.min.css')
+
+div(id='dialog-form', title='Editing Map')
+  p(class='validateTips')
+    All form fields are required.
+  form
+    fieldset
+      label(for='name') Name
+      input(type='text', name='name', id='name', value='Jane Smith', class='text ui-widget-content ui-corner-all')
+      label(for='password') Password
+      input(type='password', name='password', id='password', value='xxxxxxx', class='text ui-widget-content ui-corner-all')
+      input(type='submit', tabindex='-1', style='position:absolute; top:-1000px')
+
 block content
   h1= title
   div(id='options')
@@ -10,6 +25,8 @@ block content
   div(id='canvasWrapper')
     canvas(id='canvas', width='500', height='500')
     script(src='javascripts/lib/jquery-1.11.1.js')
+    script(src='javascripts/lib/jquery-ui.min.js')
+    script(src='javascripts/map_editor/dialog.js')
     script(src='javascripts/map_editor/map.js')
     script(src='javascripts/map_editor/map_renderer.js')
     script(src='javascripts/map_editor/object_factory.js')
