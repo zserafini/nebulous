@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var sprite_sheet_generator = require('../lib/sprite_sheet_generator');
 
 /* GET home page. */
 router.get('/', function(req, res) {

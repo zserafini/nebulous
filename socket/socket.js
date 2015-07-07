@@ -1,13 +1,7 @@
 var http = require('http').Server(app);
 var User = require("../lib/user.js");
-_ = require('lodash-node');
-map = require('../lib/map');
 io = require('socket.io')(http);
-timer = require('../lib/timer');
 socket_helpers = require('../lib/socket-helpers');
-
-map.initialize();
-timer.start();
 
 io.on('connection', function(socket){
 
